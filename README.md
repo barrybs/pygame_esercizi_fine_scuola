@@ -16,6 +16,7 @@ Eseguire un esercizio:
 ```bash
 python3 esercizio_1_acchiappa_il_quadrato_studente.py
 python3 esercizio_2_schiva_gli_ostacoli_studente.py
+python3 esercizio_3_difesa_spaziale_studente.py
 ```
 
 ## Esercizio 1: Acchiappa il quadrato
@@ -80,3 +81,36 @@ Varianti facili:
 - aumentare la velocita ogni 10 punti
 - aggiungere ostacoli di colore diverso con punteggi diversi
 
+## Esercizio 3: Difesa spaziale
+
+Obiettivo: muovere la navicella, sparare verso l'alto e colpire tutti gli
+alieni prima che arrivino in basso.
+
+File:
+
+- `esercizio_3_difesa_spaziale_studente.py`
+- `soluzione_3_difesa_spaziale.py`
+
+Concetti usati:
+
+- lettura della tastiera
+- liste di proiettili e nemici
+- movimento orizzontale di gruppo
+- collisione con `colliderect`
+- schermata di vittoria o game over
+
+TODO principali per gli studenti:
+
+1. Muovere la navicella a sinistra/destra.
+2. Sparare un proiettile premendo SPAZIO.
+3. Far salire i proiettili e rimuoverli quando escono dallo schermo.
+4. Controllare le collisioni tra proiettili e alieni.
+5. Far muovere gli alieni come gruppo.
+6. Stabilire vittoria e sconfitta.
+
+Varianti facili:
+
+- dare 3 vite alla navicella
+- aumentare la velocita degli alieni dopo ogni riga eliminata
+- aggiungere un alieno speciale che vale piu punti
+- limitare il numero massimo di proiettili sullo schermo
