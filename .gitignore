@@ -1,0 +1,18 @@
+# Soluzioni da non pubblicare subito
+/soluzione_*.py
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Ambienti virtuali locali
+.venv/
+venv/
+env/
+
+# PyCharm / IDE
+.idea/
+
+# macOS
+.DS_Store
