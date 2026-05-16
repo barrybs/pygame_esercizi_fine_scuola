@@ -6,25 +6,39 @@ import pygame
 LARGHEZZA = 800
 ALTEZZA = 600
 FPS = 60
+
+# TODO STUDENTE 1:
+# Cambia la durata della partita. Prova per esempio 20 oppure 40.
 DURATA_PARTITA = 30
 
+# TODO STUDENTE 2:
+# Cambia la dimensione del bersaglio. Un numero piu piccolo rende il gioco
+# piu difficile.
 DIMENSIONE_BERSAGLIO = 60
+
+# TODO STUDENTE 3:
+# Cambia quanti punti vale un click corretto.
+PUNTI_PER_CLICK = 1
+
+# TODO STUDENTE 4:
+# Cambia la penalita per un click sbagliato. Con 0 non si perde nulla.
+PENALITA_CLICK_SBAGLIATO = 0
+
+# TODO STUDENTE 5:
+# Cambia soglia e messaggio bonus.
+SOGLIA_BONUS = 10
+MESSAGGIO_BONUS = "Ottimo lavoro!"
 
 BIANCO = (245, 245, 245)
 NERO = (30, 30, 30)
 ROSSO = (220, 60, 60)
 BLU = (70, 130, 220)
+VERDE = (70, 170, 95)
 
 
 def crea_bersaglio():
-    """Restituisce un rettangolo che rappresenta il bersaglio."""
-    # TODO 1:
-    # Scegli x e y casuali in modo che il quadrato resti dentro la finestra.
-    # Suggerimento:
-    # x = random.randint(0, LARGHEZZA - DIMENSIONE_BERSAGLIO)
-    # y = random.randint(0, ALTEZZA - DIMENSIONE_BERSAGLIO)
-    x = 350
-    y = 250
+    x = random.randint(0, LARGHEZZA - DIMENSIONE_BERSAGLIO)
+    y = random.randint(70, ALTEZZA - DIMENSIONE_BERSAGLIO)
     return pygame.Rect(x, y, DIMENSIONE_BERSAGLIO, DIMENSIONE_BERSAGLIO)
 
 
@@ -74,22 +88,22 @@ def main():
                 running = False
             elif partita_attiva and evento.type == pygame.MOUSEBUTTONDOWN:
                 if evento.button == 1 and bersaglio.collidepoint(evento.pos):
-                    # TODO 2:
-                    # Aumenta il punteggio di 1.
-                    pass
-
-                    # TODO 3:
-                    # Sposta il bersaglio creando un nuovo rettangolo.
-                    pass
+                    punteggio += PUNTI_PER_CLICK
+                    bersaglio = crea_bersaglio()
+                elif evento.button == 1:
+                    punteggio -= PENALITA_CLICK_SBAGLIATO
+                    if punteggio < 0:
+                        punteggio = 0
 
         if partita_attiva:
             schermo.fill(BIANCO)
             pygame.draw.rect(schermo, ROSSO, bersaglio, border_radius=8)
 
-            # TODO 4:
-            # Mostra sullo schermo il punteggio e il tempo rimasto.
-            # Suggerimento:
-            # disegna_testo(schermo, f"Punti: {punteggio}", 20, 20, font)
+            disegna_testo(schermo, f"Punti: {punteggio}", 20, 20, font)
+            disegna_testo(schermo, f"Tempo: {tempo_rimasto}", 650, 20, font)
+
+            if punteggio >= SOGLIA_BONUS:
+                disegna_testo(schermo, MESSAGGIO_BONUS, 300, 20, font, VERDE)
 
             pygame.display.flip()
         else:
@@ -100,4 +114,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

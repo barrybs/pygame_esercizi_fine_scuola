@@ -1,7 +1,18 @@
 # Esercizi PyGame per gli ultimi giorni di scuola
 
-Due mini-giochi pensati per studenti che conoscono variabili, condizioni,
-cicli, liste e funzioni di base.
+Mini-giochi gia funzionanti, pensati per studenti che hanno lavorato su:
+
+- variabili
+- `print()` e f-string
+- condizioni `if`, `if-else`, `elif`
+- operatori di confronto
+- operatori logici `and`, `or`
+- cicli `for` e `while`
+- contatori e punteggi
+
+Le parti piu specifiche di PyGame sono gia pronte. Agli studenti vengono
+richieste modifiche piccole e guidate: cambiare valori, messaggi, colori,
+punteggi e semplici condizioni.
 
 ## Preparazione
 
@@ -19,71 +30,61 @@ python3 esercizio_2_schiva_gli_ostacoli_studente.py
 python3 esercizio_3_difesa_spaziale_studente.py
 ```
 
+Le soluzioni hanno nome `soluzione_*.py` e sono escluse da Git tramite
+`.gitignore`.
+
 ## Esercizio 1: Acchiappa il quadrato
 
-Obiettivo: cliccare il quadrato prima che finisca il tempo.
+Obiettivo del gioco: cliccare il quadrato prima che finisca il tempo.
 
 File:
 
 - `esercizio_1_acchiappa_il_quadrato_studente.py`
 - `soluzione_1_acchiappa_il_quadrato.py`
 
-Concetti usati:
+Modifiche semplici richieste:
 
-- finestra PyGame
-- `pygame.Rect`
-- eventi del mouse
-- collisione con `collidepoint`
-- punteggio e timer
+1. Cambiare la durata della partita.
+2. Cambiare la dimensione del bersaglio.
+3. Cambiare quanti punti vale un click corretto.
+4. Decidere se togliere punti quando si clicca fuori.
+5. Cambiare la soglia e il messaggio bonus.
 
-TODO principali per gli studenti:
+Concetti della dispensa usati dagli studenti:
 
-1. Posizionare il quadrato in un punto casuale.
-2. Aumentare il punteggio quando il giocatore clicca il quadrato.
-3. Spostare il quadrato dopo ogni click corretto.
-4. Mostrare punteggio e tempo rimasto.
-
-Varianti facili:
-
-- far diventare il quadrato piu piccolo ogni 5 punti
-- togliere un punto se il giocatore clicca fuori
-- cambiare colore al quadrato a ogni click
+- assegnamento di variabili
+- condizioni `if`
+- confronto con `>=`
+- f-string per mostrare il punteggio
 
 ## Esercizio 2: Schiva gli ostacoli
 
-Obiettivo: muovere il giocatore a sinistra/destra e schivare i blocchi che
-cadono dall'alto.
+Obiettivo del gioco: muovere il giocatore a sinistra/destra e schivare i
+blocchi che cadono dall'alto.
 
 File:
 
 - `esercizio_2_schiva_gli_ostacoli_studente.py`
 - `soluzione_2_schiva_gli_ostacoli.py`
 
-Concetti usati:
+Modifiche semplici richieste:
 
-- lettura della tastiera
-- lista di ostacoli
-- movimento di rettangoli
-- collisione con `colliderect`
-- difficolta crescente
+1. Cambiare il numero di vite.
+2. Cambiare la velocita del giocatore.
+3. Cambiare quanti punti vale un ostacolo evitato.
+4. Cambiare quando parte il livello 2.
+5. Cambiare il messaggio mostrato nel livello 2.
 
-TODO principali per gli studenti:
+Concetti della dispensa usati dagli studenti:
 
-1. Muovere il giocatore con le frecce o con A/D.
-2. Creare nuovi ostacoli a intervalli regolari.
-3. Far cadere gli ostacoli.
-4. Controllare la collisione tra giocatore e ostacoli.
-5. Aumentare il punteggio quando un ostacolo esce dallo schermo.
-
-Varianti facili:
-
-- aggiungere vite invece di terminare subito
-- aumentare la velocita ogni 10 punti
-- aggiungere ostacoli di colore diverso con punteggi diversi
+- variabili numeriche
+- `if` con confronto `>=`
+- contatori per punti e vite
+- f-string per visualizzare valori
 
 ## Esercizio 3: Difesa spaziale
 
-Obiettivo: muovere la navicella, sparare verso l'alto e colpire tutti gli
+Obiettivo del gioco: muovere la navicella, sparare verso l'alto e colpire gli
 alieni prima che arrivino in basso.
 
 File:
@@ -91,26 +92,23 @@ File:
 - `esercizio_3_difesa_spaziale_studente.py`
 - `soluzione_3_difesa_spaziale.py`
 
-Concetti usati:
+Modifiche semplici richieste:
 
-- lettura della tastiera
-- liste di proiettili e nemici
-- movimento orizzontale di gruppo
-- collisione con `colliderect`
-- schermata di vittoria o game over
+1. Cambiare il numero di righe o colonne di alieni.
+2. Cambiare la velocita della navicella.
+3. Cambiare i punti ottenuti per ogni alieno colpito.
+4. Cambiare la soglia del messaggio bonus.
+5. Cambiare i messaggi di vittoria e sconfitta.
 
-TODO principali per gli studenti:
+Concetti della dispensa usati dagli studenti:
 
-1. Muovere la navicella a sinistra/destra.
-2. Sparare un proiettile premendo SPAZIO.
-3. Far salire i proiettili e rimuoverli quando escono dallo schermo.
-4. Controllare le collisioni tra proiettili e alieni.
-5. Far muovere gli alieni come gruppo.
-6. Stabilire vittoria e sconfitta.
+- variabili
+- `if`, `else`
+- confronti tra numeri
+- cicli `for` gia preparati nel codice
+- punteggio come contatore
 
-Varianti facili:
+## Nota per la classe
 
-- dare 3 vite alla navicella
-- aumentare la velocita degli alieni dopo ogni riga eliminata
-- aggiungere un alieno speciale che vale piu punti
-- limitare il numero massimo di proiettili sullo schermo
+Le righe segnate con `TODO STUDENTE` sono quelle su cui lavorare. Le altre
+parti possono essere considerate codice gia fornito dal docente.

@@ -7,12 +7,19 @@ FPS = 60
 
 LARGHEZZA_NAVE = 70
 ALTEZZA_NAVE = 28
+
+# TODO STUDENTE 1:
+# Cambia la velocita della navicella. Prova 5, 8 oppure 10.
 VELOCITA_NAVE = 7
 
 LARGHEZZA_ALIENO = 46
 ALTEZZA_ALIENO = 30
+
+# TODO STUDENTE 2:
+# Cambia il numero di righe o colonne di alieni.
 RIGHE_ALIENI = 3
-COLONNE_ALIENI = 8
+COLONNE_ALIENI = 6
+
 SPAZIO_ALIENI = 18
 VELOCITA_ALIENI = 2
 SCATTO_IN_BASSO = 24
@@ -21,6 +28,20 @@ LARGHEZZA_PROIETTILE = 6
 ALTEZZA_PROIETTILE = 16
 VELOCITA_PROIETTILE = 9
 TEMPO_TRA_SPARI = 350
+
+# TODO STUDENTE 3:
+# Cambia quanti punti vale ogni alieno colpito.
+PUNTI_PER_ALIENO = 10
+
+# TODO STUDENTE 4:
+# Cambia soglia e messaggio bonus.
+SOGLIA_BONUS = 80
+MESSAGGIO_BONUS = "Bonus raggiunto!"
+
+# TODO STUDENTE 5:
+# Cambia i messaggi finali.
+MESSAGGIO_VITTORIA = "Hai vinto!"
+MESSAGGIO_SCONFITTA = "Game over"
 
 BIANCO = (245, 245, 245)
 NERO = (25, 25, 25)
@@ -32,7 +53,7 @@ VIOLA = (130, 85, 190)
 
 def crea_alieni():
     alieni = []
-    partenza_x = 90
+    partenza_x = 120
     partenza_y = 70
 
     for riga in range(RIGHE_ALIENI):
@@ -90,53 +111,62 @@ def main():
                 if evento.key == pygame.K_SPACE:
                     ora = pygame.time.get_ticks()
                     if ora - ultimo_sparo > TEMPO_TRA_SPARI:
-                        # TODO 2:
-                        # Crea un rettangolo piccolo sopra la nave e aggiungilo
-                        # alla lista proiettili.
-                        # Suggerimento:
-                        # proiettile = pygame.Rect(...)
-                        # proiettili.append(proiettile)
+                        proiettile = pygame.Rect(
+                            nave.centerx - LARGHEZZA_PROIETTILE // 2,
+                            nave.top - ALTEZZA_PROIETTILE,
+                            LARGHEZZA_PROIETTILE,
+                            ALTEZZA_PROIETTILE,
+                        )
+                        proiettili.append(proiettile)
                         ultimo_sparo = ora
 
         if stato == "gioco":
             tasti = pygame.key.get_pressed()
+            if tasti[pygame.K_LEFT] or tasti[pygame.K_a]:
+                nave.x -= VELOCITA_NAVE
+            elif tasti[pygame.K_RIGHT] or tasti[pygame.K_d]:
+                nave.x += VELOCITA_NAVE
 
-            # TODO 1:
-            # Muovi la nave a sinistra con freccia sinistra o A.
-            # Muovi la nave a destra con freccia destra o D.
-            # Poi impedisci alla nave di uscire dalla finestra.
+            if nave.left < 0:
+                nave.left = 0
+            elif nave.right > LARGHEZZA:
+                nave.right = LARGHEZZA
 
             for proiettile in proiettili[:]:
-                # TODO 3:
-                # Fai salire il proiettile.
-                # Se esce dallo schermo, rimuovilo dalla lista.
-                pass
+                proiettile.y -= VELOCITA_PROIETTILE
+                if proiettile.bottom < 0:
+                    proiettili.remove(proiettile)
 
             bordo_toccato = False
             for alieno in alieni:
-                # TODO 5:
-                # Sposta ogni alieno in orizzontale.
-                # Se un alieno tocca il bordo sinistro o destro,
-                # imposta bordo_toccato = True.
-                pass
+                alieno.x += VELOCITA_ALIENI * direzione_alieni
+                if alieno.left <= 0 or alieno.right >= LARGHEZZA:
+                    bordo_toccato = True
 
             if bordo_toccato:
-                # TODO 5:
-                # Cambia direzione agli alieni e falli scendere un po'.
-                pass
+                direzione_alieni *= -1
+                for alieno in alieni:
+                    alieno.y += SCATTO_IN_BASSO
 
             for proiettile in proiettili[:]:
                 for alieno in alieni[:]:
-                    # TODO 4:
-                    # Se proiettile e alieno si toccano:
-                    # - rimuovi il proiettile
-                    # - rimuovi l'alieno
-                    # - aumenta il punteggio
-                    pass
+                    if proiettile.colliderect(alieno):
+                        if proiettile in proiettili:
+                            proiettili.remove(proiettile)
+                        alieni.remove(alieno)
+                        punteggio += PUNTI_PER_ALIENO
+                        break
 
-            # TODO 6:
-            # Se non ci sono piu alieni, stato diventa "vittoria".
-            # Se un alieno arriva vicino alla nave, stato diventa "sconfitta".
+            if len(alieni) == 0:
+                stato = "vittoria"
+            else:
+                alieno_arrivato = False
+                for alieno in alieni:
+                    if alieno.bottom >= nave.top:
+                        alieno_arrivato = True
+
+                if alieno_arrivato:
+                    stato = "sconfitta"
 
         schermo.fill(BIANCO)
 
@@ -153,12 +183,15 @@ def main():
         disegna_testo(schermo, f"Punti: {punteggio}", 20, 20, font)
         disegna_testo(schermo, "ESC per uscire", 610, 20, font, VIOLA)
 
+        if punteggio >= SOGLIA_BONUS and stato == "gioco":
+            disegna_testo(schermo, MESSAGGIO_BONUS, 270, 20, font, VERDE)
+
         if stato != "gioco":
             if stato == "vittoria":
-                messaggio = "Hai vinto!"
+                messaggio = MESSAGGIO_VITTORIA
                 colore = VERDE
             else:
-                messaggio = "Game over"
+                messaggio = MESSAGGIO_SCONFITTA
                 colore = ROSSO
 
             testo = font_grande.render(messaggio, True, colore)
